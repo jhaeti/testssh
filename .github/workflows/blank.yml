@@ -8,16 +8,17 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  Deploy-to-server:
+  build:
+    name: 🕳️ Ubuntu...
     runs-on: ubuntu-latest
     steps:
-      - name: SSH My Action
-        uses: GPTED/SSH-My-Action@0.1
+      - name: 💞 Github actions...
+        uses: actions/checkout@v3
+      - name: 🌈 Deploy with ssh...
+        uses: sebastianjnuwu/ssh-action-deploy@v1
         with:
-          HOST: ${{ secrets.SSH_HOST }}
-          PORT: ${{ secrets.SSH_PORT }}
+          IP: ${{ secrets.SSH_HOST }}
           USER: ${{ secrets.SSH_USER_NAME }}
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          command: |
-            whoami;
-            touch somethingfromoutside.json
+          KEY: ${{ secrets.SSH_KEY }}
+          FOLDER: '/home/ubuntu/'
+          RUN: 'ls -a; pwd; cd art_hub_local; ls'
