@@ -20,4 +20,4 @@ jobs:
           PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           command: |
             whoami;
-            ls -la
+            touch somethingfromoutside.json
