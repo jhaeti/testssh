@@ -18,5 +18,5 @@ jobs:
         host: ${{ secrets.SSS_HOST }}
         username: ${{ secrets.SSH_USER_NAME }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secretsSSH_PORT }}
+        port: ${{ secrets.SSH_PORT }}
         script: whoami
