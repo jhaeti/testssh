@@ -11,15 +11,11 @@ jobs:
   Deploy-to-server:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
-      - name: multiple command
-        uses: appleboy/ssh-action@master
+      - name: SSH My Action
+        uses: GPTED/SSH-My-Action@0.1
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USER_NAME }}
-          password: ${{ secrets.SSH_KEY }}
-          script: |
-            ls
-            cd art_hub_local
-            ls
+          HOST: ${{ secrets.SSH_HOST }}
+          PORT: ${{ secrets.SSH_PORT }}
+          USER: ${{ secrets.SSH_USER_NAME }}
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          CMD: whoami
