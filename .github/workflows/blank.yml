@@ -8,19 +8,17 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build:
-    name: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-        shell: bash
-      - uses: tzzs/server-shell@v3
-        with:
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
-          USERNAME: ${{secrets.SSH_USER_NAME}}
-          IP: ${{secrets.SSH_HOST_IP}}
-          PORT: ${{secrets.SSH_PORT}}
-          SHELL: |
-            "echo action-test"
-            "ls"
+    Cleaning-containers-and-dangling-images-on-server:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: Testing
+            uses: appleboy/ssh-action@master
+            with:
+              host: ${{ secrets.HOST }}
+              username: ${{ secrets.HOST_USER }}
+              password: ${{ secrets.HOST_KEY }}
+              script: |
+                ls
+                cd art_hub_local
+                ls
