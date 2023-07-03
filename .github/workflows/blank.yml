@@ -12,13 +12,19 @@ jobs:
     name: 🕳️ Ubuntu...
     runs-on: ubuntu-latest
     steps:
-      - name: 💞 Github actions...
-        uses: actions/checkout@v3
-      - name: 🌈 Deploy with ssh...
-        uses: sebastianjnuwu/ssh-action-deploy@v1
-        with:
-          IP: ${{ secrets.SSH_HOST }}
-          USER: ${{ secrets.SSH_USER_NAME }}
-          KEY: ${{ secrets.SSH_KEY }}
-          FOLDER: '/home/ubuntu/'
-          RUN: 'ls -a; pwd; cd art_hub_local; ls'
+      - uses: actions/checkout@v2 
+      - name: Build & Deploy
+        env:
+            PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            HOSTNAME: ${{secrets.SSH_HOST}}
+            USER_NAME: ${secrets.USER_NAME}
+      
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+
+              # Now we have got the access of EC2 and we will start the deploy .
+              ls &&
+              cd /home/ubuntu &&
+              ls
+              '
