@@ -12,16 +12,15 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: ssh pipelines
-        uses: cross-the-world/ssh-pipeline@master
-        env:
-          WELCOME: "ssh pipeline"
+      - uses: actions/checkout@v2
+      - run: npm install
+        shell: bash
+      - uses: tzzs/server-shell@v3
         with:
-          host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USER_NAME }}
-          KEY: ${{ secrets.SSH_PRIVATE_KEY_PEM }}
-          connect_timeout: 10s
-          script: |
-            ls
-            cd art_hub_local
-            ls
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY}}
+          USERNAME: ${{secrets.SSH_USER_NAME}}
+          IP: ${{secrets.SSH_HOST_IP}}
+          PORT: ${{secrets.SSH_PORT}}
+          SHELL: |
+            "echo action-test"
+            "ls"
