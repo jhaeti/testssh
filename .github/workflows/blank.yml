@@ -9,22 +9,14 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    name: 🕳️ Ubuntu...
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 
-      - name: Build & Deploy
-        env:
-            PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            HOSTNAME: ${{secrets.SSH_HOST}}
-            USER_NAME: ${secrets.USER_NAME}
-      
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
-
-              # Now we have got the access of EC2 and we will start the deploy .
-              ls &&
-              cd /home/ubuntu &&
-              ls
-              '
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.SSS_HOST }}
+        username: ${{ secrets.SSH_USER_NAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secretsSSH_PORT }}
+        script: whoami
