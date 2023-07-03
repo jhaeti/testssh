@@ -9,14 +9,16 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-    name: Build
+    name: 🕳️ Ubuntu...
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v0.1.10
-      with:
-        host: ${{ secrets.SSS_HOST }}
-        username: ${{ secrets.SSH_USER_NAME }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: whoami
+      - name: 💞 Github actions...
+        uses: actions/checkout@v3
+      - name: 🌈 Deploy with ssh...
+        uses: sebastianjnuwu/ssh-action-deploy@v1
+        with:
+          IP: ${{ secrets.SSH_HOST }}
+          USER: ${{ secrets.SSH_USER_NAME }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          FOLDER: '/home/ubuntu/'
+          RUN: 'ls -a; pwd; cd art_hub_local; ls'
