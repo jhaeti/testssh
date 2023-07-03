@@ -8,17 +8,14 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-    Cleaning-containers-and-dangling-images-on-server:
+    test:
         runs-on: ubuntu-latest
         steps:
-          - uses: actions/checkout@v2
-          - name: Testing
-            uses: appleboy/ssh-action@master
+          - id: ssh
+            uses: invi5H/ssh-action@v1
             with:
-              host: ${{ secrets.HOST }}
-              username: ${{ secrets.HOST_USER }}
-              password: ${{ secrets.HOST_KEY }}
-              script: |
-                ls
-                cd art_hub_local
-                ls
+              SSH_HOST: ${{ secrets.SSH_HOST }}
+              SSH_PORT: ${{ secrets.SSH_PORT }}
+              SSH_USER: ${{ secrets.SSH_USER }}
+              SSH_KEY: ${{ secrets.SSH_KEY }}
+          - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
