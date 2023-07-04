@@ -19,6 +19,7 @@ jobs:
               SSH_USER: ${{ secrets.SSH_USER }}
               SSH_KEY: ${{ secrets.SSH_KEY }}
           - run: |
+              cd /home/ubuntu/
               ls
               pwd
               whoami
